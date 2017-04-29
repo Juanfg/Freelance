@@ -16,11 +16,12 @@ Auth::routes();
 Route::group(['middleware' => 'auth'], function(){
 
     Route::get('/', function () {
-        if (Auth::gest())
+        if (Auth::guest())
             return redirect()->route('login');
         return view('home');
     });
 
     Route::get('/home', 'HomeController@index')->name('home');
+    Route::resource('projects', 'ProjectController');
 });
 

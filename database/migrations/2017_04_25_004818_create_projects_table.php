@@ -19,9 +19,9 @@ class CreateProjectsTable extends Migration
             $table->integer('owner')->unsigned();
             $table->foreign('owner')->references('id')->on('users')->onUpdate('cascade')->onDelete('cascade');
             $table->text('description');
-            $table->string('location');
+            $table->string('location')->nullable();
             $table->integer('difficulty');
-            $table->string('document');
+            $table->string('document')->nullable();
             $table->boolean('active')->default(1);
             $table->timestamps();
         });

@@ -2,3 +2,12 @@
 	overflow: auto;
 	overflow: scroll;
 }
+
+.droptarget {
+	background: #bafed1;
+	min-height: 300px;
+	margin-bottom: 5px;
+}
+.pad {
+	margin: 5px;
+}

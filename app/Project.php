@@ -6,6 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Project extends Model
 {
+    protected $guarded = ['id'];
+
     public function categories()
     {
         return $this->belongsToMany('App\Category', 'categories_projects');

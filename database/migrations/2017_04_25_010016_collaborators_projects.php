@@ -19,7 +19,7 @@ class CollaboratorsProjects extends Migration
             $table->foreign('project_id')->references('id')->on('projects')->onUpdate('cascade')->onDelete('cascade');
             $table->integer('user_id')->unsigned();
             $table->foreign('user_id')->references('id')->on('users')->onUpdate('cascade')->onDelete('cascade');
-            $table->double('grade');
+            $table->double('grade')->nullable();
             $table->boolean('active')->default(0);
             $table->timestamps();
         });

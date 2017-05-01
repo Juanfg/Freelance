@@ -1,9 +1,11 @@
 @extends('layouts.sidebar')
 
+@section('title', 'Create Project')
+
 @section('content')
 <div class="card">
     <div class="card-header">
-        Create a new Project
+        Create a new project and show it to the world!
     </div>
     <div class="messages"></div>
     <div class="card-body">

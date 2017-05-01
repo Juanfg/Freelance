@@ -1,10 +1,11 @@
 @extends('layouts.sidebar')
 
-@section('content')
+@section('title', 'My Projects')
 
+@section('content')
 <div class="card">
         <div class="card-header">
-            Your Projects
+            Here you can see your own projects.
         </div>
         <div class="scroll card-body no-padding">
             <table class="table table-striped primary" cellspacing="0" width="100%">

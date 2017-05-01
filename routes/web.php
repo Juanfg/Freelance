@@ -21,7 +21,7 @@ Route::group(['middleware' => 'auth'], function(){
         return view('home');
     });
 
-    Route::get('/home', 'HomeController@index')->name('home');
+    Route::get('/', 'HomeController@index')->name('home');
     Route::resource('projects', 'ProjectController');
 });
 

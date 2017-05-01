@@ -22,4 +22,9 @@ class Project extends Model
     {
         return $this->hasMany('App\Photo');
     }
+
+    public function owner()
+    {
+        return $this->belongsTo('App\User', 'owner');
+    }
 }

@@ -24,3 +24,6 @@ Route::get('login', 'ApiController@login');
 Route::get('getAllProjects', 'ApiController@getAllProjects');
 Route::get('getMyProjects', 'ApiController@getMyProjects');
 Route::get('getProject', 'ApiController@getProject');
+Route::get('getAllCategories', 'ApiController@getAllCategories');
+Route::get('createProject', 'ApiController@createProject');
+Route::get('updateProject', 'ApiController@updateProject');

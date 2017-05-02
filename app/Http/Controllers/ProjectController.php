@@ -70,6 +70,13 @@ class ProjectController extends Controller
                 ]);
             }
         }
+        else
+        {
+            Photo::create([
+                'path' => 'public/images/img_not_available.png',
+                'project_id' => $project->id,
+            ]);
+        }
 
         if ($request->hasFile('document'))
         {

@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Project;
 use App\User;
+use App\Category;
 
 class ApiController extends Controller
 {
@@ -197,6 +198,76 @@ class ApiController extends Controller
         $project->document = str_replace("public", "storage", $project->document);
         $project->owner = $project->owner()->select('name')->get();
         $project->collaborators = $project->collaborators()->select('name')->get();
+        return json_encode(
+            array(
+                'state' => 200,
+                'status_msg' => 'OK',
+                'data' => $project
+            )
+        );
+    }
+
+    public function getAllCategories()
+    {
+        $categories = Category::all();
+        if ($categories->count() <= 0)
+            return json_encode(
+                array(
+                    'state' => 404,
+                    'status_msg' => 'CATEGORIES NOT FOUND',
+                    'data' => array()
+                )
+            );
+
+        return json_encode(
+            array(
+                'state' => 200,
+                'status_msg' => 'OK', 
+                'data' => $categories
+            )
+        );
+    }
+
+    public function createProject(Request $request)
+    {
+        $project = Project::create([
+            'name'          => $request->name,
+            'owner'         => $request->user_id,
+            'description'   => $request->description,
+            'difficulty'    => $request->difficulty,
+            'document'      => NULL
+        ]);
+
+        // $category = Category::where('name', $request->category)->first();
+        // $project->categories()->attach($category->id);
+
+        return json_encode(
+            array(
+                'state' => 200,
+                'status_msg' => 'OK',
+                'data' => $project
+            )
+        );
+    }
+
+    public function updateProject(Request $request)
+    {
+        $project = Project::where('id', $request->id)->first();
+        if (!$project)
+            return json_encode(
+              array(
+                    'state' => 404,
+                    'status_msg', 'PROJECT NOT FOUND',
+                    'data' => array()
+                )
+            );
+
+
+        $project->name = $request->name;
+        $project->description = $request->description;
+        $project->difficulty = $request->difficulty;
+        $project->save();
+
         return json_encode(
             array(
                 'state' => 200,

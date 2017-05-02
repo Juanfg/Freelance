@@ -1,5 +1,7 @@
 @extends('layouts.sidebar')
 
+@section('title', $project->name);
+
 @section('content')
     <div class="col-md-12">
         <a class="card card-banner">
@@ -8,7 +10,7 @@
                     <div class="slideshow-container">
                         @foreach ($project->photos()->get() as $photo)
                             <div class="mySlides">
-                                <img src="{{ Storage::url($photo->path) }}" style="width:100%">
+                                <img src="{{ Storage::url($photo->path) }}" style="width:100%; height:500px; object-fit:cover;">
                             </div>
                         @endforeach
                         <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
@@ -17,6 +19,7 @@
                 </div>
             </div>
         </a>
+
     </div>
 @endsection
 

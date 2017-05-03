@@ -119,7 +119,72 @@ class ApiController extends Controller
                 $photo->path = str_replace("public", "storage", $photo->path);
             $project->photos = $photos;
             $project->document = str_replace("public", "storage", $project->document);
-            $project->owner = $project->owner()->select('name')->first();
+            $project->owner = $project->owner()->select('name', 'email')->first();
+            $project->collaborators = $project->collaborators()->select('name', 'email')->get();
+        }
+        return json_encode(
+            array(
+                'state' => 200,
+                'status_msg' => 'OK',
+                'data' => $projects
+            )
+        );
+    }
+
+    public function getJoinedProjects(Request $request)
+    {
+        $projects = User::find($request->user_id)->projectsCollaborating()->get();
+        if ($projects->count() <= 0)
+            return json_encode(
+                array(
+                    'state' => 404,
+                    'status_msg' => 'NO PROJECTS',
+                    'data' => array()
+                )
+            );
+        
+        foreach ($projects as $project)
+        {
+            $project->categories = $project->categories()->select('name')->get();
+            $photos = $project->photos()->select('path')->get();
+            foreach ($photos as $photo)
+                $photo->path = str_replace("public", "storage", $photo->path);
+            $project->photos = $photos;
+            $project->document = str_replace("public", "storage", $project->document);
+            $project->owner = $project->owner()->select('name', 'email')->first();
+            $project->collaborators = $project->collaborators()->select('name', 'email')->get();
+        }
+        return json_encode(
+            array(
+                'state' => 200,
+                'status_msg' => 'OK',
+                'data' => $projects
+            )
+        );
+    }
+
+    public function getNotJoinedProjects(Request $request)
+    {
+        $projects_collaborating = User::find($request->user_id)->projectsCollaborating()->pluck('projects.id');
+        $projects = Project::whereNotIn('id', $projects_collaborating)->whereNotIn('owner', [$request->user_id])->get();
+        if ($projects->count() <= 0)
+            return json_encode(
+                array(
+                    'state' => 404,
+                    'status_msg' => 'NO PROJECTS',
+                    'data' => array()
+                )
+            );
+
+        foreach ($projects as $project)
+        {
+            $project->categories = $project->categories()->select('name')->get();
+            $photos = $project->photos()->select('path')->get();
+            foreach ($photos as $photo)
+                $photo->path = str_replace("public", "storage", $photo->path);
+            $project->photos = $photos;
+            $project->document = str_replace("public", "storage", $project->document);
+            $project->owner = $project->owner()->select('name', 'email')->first();
             $project->collaborators = $project->collaborators()->select('name')->get();
         }
         return json_encode(
@@ -160,7 +225,8 @@ class ApiController extends Controller
             $project->photos = $photos;
             $project->document = str_replace("public", "storage", $project->document);
             $project->owner = $user->name;
-            $project->collaborators = $project->collaborators()->select('name')->get();
+            $project->owner_email = $user->email;            
+            $project->collaborators = $project->collaborators()->select('name', 'email')->get();
         }
         return json_encode(
             array(
@@ -196,8 +262,8 @@ class ApiController extends Controller
             $photo->path = str_replace("public", "storage", $photo->path);
         $project->photos = $photos;
         $project->document = str_replace("public", "storage", $project->document);
-        $project->owner = $project->owner()->select('name')->first();
-        $project->collaborators = $project->collaborators()->select('name')->get();
+        $project->owner = $project->owner()->select('name', 'email')->first();
+        $project->collaborators = $project->collaborators()->select('name', 'email')->get();
         return json_encode(
             array(
                 'state' => 200,
@@ -294,6 +360,59 @@ class ApiController extends Controller
                 'state' => 200,
                 'status_msg' => 'OK',
                 'data' => $user
+            )
+        );
+    }
+
+    public function updateUser(Request $request)
+    {
+        $user = User::where('id', $request->user_id)->first();
+        if (!$user)
+            return json_encode(
+                array(
+                    'state' => 404, 
+                    'status_msg' => 'USER NOT FOUND',
+                    'data' => array()
+                )
+            );
+        
+        $user->name = $request->name;   
+        $user->password = bcrypt($request->password);
+        $user->token_password = sha1($request->password);
+        $user->save();
+
+        return json_encode(
+            array(
+                'state' => 200,
+                'status_msg' => 'OK',
+                'data' => array(
+                    'user_id'   => $user->id,
+                    'name'      => $user->name,
+                    'email'     => $user->email
+                )
+            )
+        ); 
+    }
+
+    public function joinProject(Request $request)
+    {
+        $project = Project::where('id', $request->project_id)->first();
+        
+        if (!$project)
+            return json_encode(
+                array(
+                    'state' => 404,
+                    'status_msg' => 'PROJECT NOT FOUND',
+                    'data' => array()
+                )
+            );
+        
+        $project->collaborators()->attach($request->user_id);
+        return json_encode(
+            array(
+                'state' => 200,
+                'status_msg' => 'OK',
+                array()
             )
         );
     }

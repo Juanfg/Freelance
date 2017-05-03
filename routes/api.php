@@ -22,8 +22,13 @@ Route::get('register', 'ApiController@register');
 Route::get('login', 'ApiController@login');
 
 Route::get('getAllProjects', 'ApiController@getAllProjects');
+Route::get('getJoinedProjects', 'ApiController@getJoinedProjects');
+Route::get('getNotJoinedProjects', 'ApiController@getNotJoinedProjects');
 Route::get('getMyProjects', 'ApiController@getMyProjects');
 Route::get('getProject', 'ApiController@getProject');
 Route::get('getAllCategories', 'ApiController@getAllCategories');
 Route::get('createProject', 'ApiController@createProject');
 Route::get('updateProject', 'ApiController@updateProject');
+Route::get('getUser', 'ApiController@getUser');
+Route::get('updateUser', 'ApiController@updateUser');
+Route::get('joinProject', 'ApiController@joinProject');

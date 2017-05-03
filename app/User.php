@@ -31,4 +31,9 @@ class User extends Authenticatable
     {
         return $this->hasMany('App\Project', 'owner');
     }
+
+    public function projectsCollaborating()
+    {
+        return $this->belongsToMany('App\Project', 'collaborators_projects')->withPivot('grade');
+    }
 }

@@ -119,7 +119,7 @@ class ApiController extends Controller
                 $photo->path = str_replace("public", "storage", $photo->path);
             $project->photos = $photos;
             $project->document = str_replace("public", "storage", $project->document);
-            $project->owner = $project->owner()->select('name')->get();
+            $project->owner = $project->owner()->select('name')->first();
             $project->collaborators = $project->collaborators()->select('name')->get();
         }
         return json_encode(
@@ -196,7 +196,7 @@ class ApiController extends Controller
             $photo->path = str_replace("public", "storage", $photo->path);
         $project->photos = $photos;
         $project->document = str_replace("public", "storage", $project->document);
-        $project->owner = $project->owner()->select('name')->get();
+        $project->owner = $project->owner()->select('name')->first();
         $project->collaborators = $project->collaborators()->select('name')->get();
         return json_encode(
             array(

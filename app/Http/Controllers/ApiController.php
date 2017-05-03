@@ -53,7 +53,7 @@ class ApiController extends Controller
      * Parameters: email, password
      * Success: The function will return a JSON with state=200, status_msg=OK and an array with the data of the user.
      * Fail: The function will return a JSON with state=404, status_msg=USER NOT FOUND and an empty array if the user is not found in the DB,
-     *       The function will return a JSON with state=401, status_msg=WRONG PASSWORD and an empty array if password doesn't correspond to the user 
+     * The function will return a JSON with state=401, status_msg=WRONG PASSWORD and an empty array if password doesn't correspond to the user 
      * How to call: http://<ip>:<port(defaul=8000)>/api/login?email=<email>&password=<password>
     */
     public function login(Request $request)
@@ -238,8 +238,8 @@ class ApiController extends Controller
             'document'      => NULL
         ]);
 
-        // $category = Category::where('name', $request->category)->first();
-        // $project->categories()->attach($category->id);
+        $category = Category::where('name', $request->category)->first();
+        $project->categories()->attach($category->id);
 
         return json_encode(
             array(
@@ -252,7 +252,7 @@ class ApiController extends Controller
 
     public function updateProject(Request $request)
     {
-        $project = Project::where('id', $request->id)->first();
+        $project = Project::where('id', $request->project_id)->first();
         if (!$project)
             return json_encode(
               array(

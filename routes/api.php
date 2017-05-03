@@ -32,3 +32,4 @@ Route::get('updateProject', 'ApiController@updateProject');
 Route::get('getUser', 'ApiController@getUser');
 Route::get('updateUser', 'ApiController@updateUser');
 Route::get('joinProject', 'ApiController@joinProject');
+Route::get('deleteProject', 'ApiController@deleteProject');

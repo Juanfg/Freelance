@@ -134,6 +134,7 @@ class ApiController extends Controller
     public function getJoinedProjects(Request $request)
     {
         $projects = User::find($request->user_id)->projectsCollaborating()->get();
+        $user = User::find($request->user_id);
         if ($projects->count() <= 0)
             return json_encode(
                 array(
@@ -158,7 +159,8 @@ class ApiController extends Controller
             array(
                 'state' => 200,
                 'status_msg' => 'OK',
-                'data' => $projects
+                'data' => $projects,
+                'user_name' => $user->name
             )
         );
     }
@@ -408,6 +410,28 @@ class ApiController extends Controller
             );
         
         $project->collaborators()->attach($request->user_id);
+        return json_encode(
+            array(
+                'state' => 200,
+                'status_msg' => 'OK',
+                array()
+            )
+        );
+    }
+
+    public function deleteProject(Request $request)
+    {
+        $project = Project::where('id', $request->project_id)->first();
+        if (!$project)
+            return json_encode(
+                array(
+                    'state' => 404,
+                    'status_msg' => 'PROJECT NOT FOUND',
+                    'data' => array()
+                )
+            );
+        
+        $project->delete();
         return json_encode(
             array(
                 'state' => 200,

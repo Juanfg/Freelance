@@ -257,7 +257,7 @@ class ApiController extends Controller
             return json_encode(
               array(
                     'state' => 404,
-                    'status_msg', 'PROJECT NOT FOUND',
+                    'status_msg' => 'PROJECT NOT FOUND',
                     'data' => array()
                 )
             );
@@ -273,6 +273,27 @@ class ApiController extends Controller
                 'state' => 200,
                 'status_msg' => 'OK',
                 'data' => $project
+            )
+        );
+    }
+
+    public function getUser(Request $request)
+    {
+        $user = User::where('id', $request->user_id)->first();
+        if (!$user)
+            return json_encode(
+                array(
+                    'state' => 404, 
+                    'status_msg' => 'USER NOT FOUND',
+                    'data' => array()
+                )
+            );
+
+        return json_encode(
+            array(
+                'state' => 200,
+                'status_msg' => 'OK',
+                'data' => $user
             )
         );
     }

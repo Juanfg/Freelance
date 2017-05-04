@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Project;
 use App\User;
 use App\Category;
+use App\Photo;
 
 class ApiController extends Controller
 {
@@ -169,6 +170,7 @@ class ApiController extends Controller
     {
         $projects_collaborating = User::find($request->user_id)->projectsCollaborating()->pluck('projects.id');
         $projects = Project::whereNotIn('id', $projects_collaborating)->whereNotIn('owner', [$request->user_id])->get();
+        $user = User::find($request->user_id);
         if ($projects->count() <= 0)
             return json_encode(
                 array(
@@ -193,7 +195,8 @@ class ApiController extends Controller
             array(
                 'state' => 200,
                 'status_msg' => 'OK',
-                'data' => $projects
+                'data' => $projects,
+                'user_name' => $user->name
             )
         );
     }
@@ -234,7 +237,8 @@ class ApiController extends Controller
             array(
                 'state' => 200,
                 'status_msg' => 'OK',
-                'data' => $projects
+                'data' => $projects,
+                'user_name' => $user->name
             )
         );
     }
@@ -308,6 +312,11 @@ class ApiController extends Controller
 
         $category = Category::where('name', $request->category)->first();
         $project->categories()->attach($category->id);
+
+         Photo::create([
+                'path' => 'public/images/img_not_available.png',
+                'project_id' => $project->id,
+        ]);
 
         return json_encode(
             array(

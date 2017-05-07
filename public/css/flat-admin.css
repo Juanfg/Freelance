@@ -1888,6 +1888,11 @@ a:hover {
     padding-left: 0px !important;
     padding-right: 0px !important; }
 
+.row.fix {
+  display: flex;
+  flex-wrap: wrap;
+}
+
 @media (max-width: 767px) {
   .row {
     margin-left: -10.75px;
@@ -3804,7 +3809,9 @@ ui-view > .app-messaging-container {
   width: 100%;
   background-color: #FFF;
   border-radius: 3px;
-  box-shadow: 0 1px 2px #c8d1d3; }
+  box-shadow: 0 1px 2px #c8d1d3;
+  float: left; }
+
   .card .card-header {
     padding: 30px;
     font-size: 1.1em;
@@ -3837,11 +3844,23 @@ ui-view > .app-messaging-container {
         left: auto;
         border-radius: 2px; }
   .card .card-body {
-    padding: 30px; }
+    padding: 30px;
+    }
+  .card .card-body-title {
+    padding: 30px;
+    }
   .card.card-mini .card-header {
     padding: 20px 30px; }
   .card.card-mini .card-body {
-    padding: 20px 30px; }
+    padding: 20px 30px;
+    }
+  .card.card-mini .card-body-title {
+    margin-bottom: -40px;
+    font-size: 24px;
+    color:#29c75f; }
+  .card.card-mini .card-body-description {
+    padding: 20px 30px;
+    margin-bottom: -22px;}
   .card.card-tab .card-header {
     padding: 0;
     background-color: #f0f4f5;

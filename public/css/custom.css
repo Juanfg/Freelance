@@ -100,3 +100,55 @@
   from {opacity: .4} 
   to {opacity: 1}
 }
+
+.card.categories .title {
+  font-size: 1em;
+  font-weight: 400;
+  color: #8d9293;
+  text-transform: uppercase; 
+  margin-bottom: 5px;
+}
+
+.card-right {
+  font-size: 1em;
+  font-weight: 400;
+  color: #8d9293;
+  text-transform: uppercase; 
+  margin-bottom: 5px;
+}
+
+.card.card-red {
+  background-color: #e74c3c; }
+  .card.card-red .card-body .icon {
+    color: #FFF;
+    background-color: rgba(255, 255, 255, 0.05); }
+  .card.card-red .card-body .content .value {
+    color: #FFF; }
+  .card.card-red-light {
+    background-color: #FFF; }
+    .card.card-red-light .card-body .icon {
+      color: #e74c3c;
+      background-color: rgba(57, 195, 218, 0.05); }
+    .card.card-red-light .card-body .content .value {
+      color: #e74c3c; }
+    .card.card-red-light:hover {
+      background-color: #e74c3c; }
+      .card.card-red-light:hover .card-body .icon {
+        color: #FFF;
+        background-color: rgba(255, 255, 255, 0.1); }
+      .card.card-red-light:hover .card-body .content .title {
+        color: #FFF; }
+      .card.card-red-light:hover .card-body .content .value{
+        color: #FFF; }
+  .card.card-red.card-chart .card-header {
+    background-color: #e74c3c;
+    color: #e74c3c; }
+
+.close {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  width: 40px;
+  height: 40px;
+  opacity: .8;
+}

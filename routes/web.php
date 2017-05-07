@@ -23,5 +23,6 @@ Route::group(['middleware' => 'auth'], function(){
 
     Route::get('/', 'HomeController@index')->name('home');
     Route::resource('projects', 'ProjectController');
+    Route::get('/downloadDocument/{id}', 'ProjectController@downloadDocument');
 });
 

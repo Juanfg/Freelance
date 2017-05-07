@@ -5,15 +5,19 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Response;
+use Illuminate\Support\Facades\Storage;
 use App\Project;
 use App\Category;
 use App\Photo;
+use App\User;
 
 class ProjectController extends Controller
 {
     public function index()
     {
-        $projects = Project::all();
+        $current_user = Auth::user();
+        $projects = Project::where('owner', $current_user->id)->get();
         return view('projects.index', ['projects' => $projects]);
     }
 
@@ -32,6 +36,7 @@ class ProjectController extends Controller
     public function store(Request $request)
     {
         // Validate the input
+
         $validator = Validator::make($request->all(), [
             'name'          => 'required|string',
             'description'   => 'required|string',
@@ -70,13 +75,6 @@ class ProjectController extends Controller
                 ]);
             }
         }
-        else
-        {
-            Photo::create([
-                'path' => 'public/images/img_not_available.png',
-                'project_id' => $project->id,
-            ]);
-        }
 
         if ($request->hasFile('document'))
         {
@@ -90,12 +88,94 @@ class ProjectController extends Controller
 
     public function edit($id)
     {
-
+        $current_user = Auth::user();
+        $project = Project::find($id);
+        $categories_user = $project->categories()->pluck('categories.id');
+        $categories = Category::whereNotIn('id', $categories_user)->get();
+        return view('projects.update', ['project' => $project, 'categories' => $categories]);
     }
 
     public function update(Request $request, $id)
     {
+        $validator = Validator::make($request->all(), [
+            'name'          => 'required|string',
+            'description'   => 'required|string',
+            'difficulty'    => 'required|numeric',
+        ]);
 
+        $current_photos = explode(",", $request->current_photos);
+        $photos_to_delete = Project::find($id)->photos()->whereNotIn('id', $current_photos)->select('id')->get();
+        $photos_to_delete = $photos_to_delete->toArray();
+
+        $categories_request = explode(",", $request->categories);
+        $model_categories_to_delete = Project::find($id)->categories()->whereNotIn('categories.id', $categories_request)->select('categories.id')->get();
+        $model_categories_to_delete = $model_categories_to_delete->toArray();
+        $categories_to_delete = array();
+        for ($i = 0; $i < count($model_categories_to_delete); $i++)
+            array_push($categories_to_delete, $model_categories_to_delete[$i]['id']);
+
+        $current_categories = Project::find($id)->categories()->get();
+
+        $categories_to_add = array();
+        for ($i = 0; $i < count($categories_request); $i++)
+        {
+            $isInCollection = false;
+            foreach ($current_categories as $category)
+            {
+                if ($category->id == $categories_request[$i])
+                {
+                    $isInCollection = true;
+                    break;
+                }
+            }
+            if (!$isInCollection)
+                array_push($categories_to_add, $categories_request[$i]);
+        }
+
+        $project = Project::find($id);
+
+        $project->name = $request['name'];
+        $project->description = $request['description'];
+        $project->difficulty = $request['difficulty'];
+
+
+        if ($request->hasFile('photos'))
+        {
+            $files = $request->file('photos');
+            foreach ($files as $file)
+            {
+                $path = $file->store('public/images');
+                Photo::create([
+                    'path'          => $path,
+                    'project_id'    => $project->id
+                ]);
+            }
+        }
+
+        $doc = $request['document'];
+        $photos = $request['photos'];
+        if ($request->hasFile('document'))
+        {
+            //TODO: Delete current file if has one
+            $path = $request->document->store('public/documents');
+            $project->document = $path;
+        }
+
+        Photo::destroy($photos_to_delete);
+
+        if (count($categories_to_delete) > 0)
+        {
+            $project->categories()->detach($categories_to_delete);
+        }
+
+        if (count($categories_to_add) > 0)
+        {
+            $project->categories()->attach($categories_to_add);
+        }
+
+        $project->save();
+
+        return ['success' => true];
     }
 
     public function destroy($id)
@@ -103,5 +183,12 @@ class ProjectController extends Controller
         $project = Project::where('id', $id)->firstOrFail();
         $project->delete();
         return ['success' => true];
+    }
+
+    public function downloadDocument($id)
+    {
+        $project = Project::where('id', $id)->first();
+        $file = str_replace("public", "storage", $project->document);
+        return Response::download($file);
     }
 }

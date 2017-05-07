@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>{{ config('app.name', 'Freelance') }}</title>
+	<title>{{ config('app.name', 'FreeLancers') }}</title>
 
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<meta name="csrf-token" content="{{ csrf_token() }}" />
@@ -91,11 +91,9 @@
 
 				
 			</nav>
-			<div class="row">
-				<div class="col-xs-12">
+			
 					@yield('content')
-				</div>
-			</div>
+
 		</div>
 	</div>
   

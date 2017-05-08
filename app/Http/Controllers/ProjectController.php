@@ -244,4 +244,28 @@ class ProjectController extends Controller
         $project->save();
         return ['success' => true];
     }
+
+    public function getAllProjects()
+    {
+        $projects = Project::all();
+        return view('admin.manage_projects',['projects' => $projects]);
+    }
+
+    public function activateProject($id)
+    {
+        $projects = Project::all();
+        $project = Project::find($id);
+        $project->active = true;
+        $project->save();
+        return redirect()->route('manage_projects', ['projects' => $projects]);
+    }
+
+    public function deactivateProject($id)
+    {
+        $projects = Project::all();
+        $project = Project::find($id);
+        $project->active = false;
+        $project->save();
+        return redirect()->route('manage_projects', ['projects' => $projects]);
+    }
 }

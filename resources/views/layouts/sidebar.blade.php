@@ -59,20 +59,28 @@
 							<div class="title">Collaborating</div>
 						</a>
 					</li>
+					<li class="dropdown {{ !Request::is('manage_*') ? : 'active' }}">
+						<a href="{{ route('manage_users') }}">
+							<div class="icon">
+								<i class="fa fa-user-secret" aria-hidden="true"></i>
+							</div>
+							<div class="title">Admin</div>
+						</a>
+						<div class="dropdown-menu">
+							<ul>
+								<li class="section"><i class="fa fa-user-secret" aria-hidden="true"></i>Admin</li>
+								<li><a href="{{ route('manage_users') }}">Manage Users</a></li>
+								<li><a href="{{ route('manage_projects') }}">Manage Project</a></li>
+								<li><a href="{{ route('manage_categories') }}">Manage Categories</a></li>
+							</ul>
+						</div>
+					</li>
 					<li>				
 						<a href="javascript:void(0);" onclick="javascript:introJs().setOption('showBullets', false).start();">
 							<div class="icon">
 								<i class="fa fa-question" aria-hidden="true"></i>
 							</div>
 							<div class="title">Help me please</div>
-						</a>
-					</li>
-					<li class="{{ !Request::is('manage_users') ? : 'active' }}">
-						<a href="{{ route('manage_users') }}">
-							<div class="icon">
-								<i class="fa fa-home" aria-hidden="true"></i>
-							</div>
-							<div class="title">Manage Users</div>
 						</a>
 					</li>
 				</ul>

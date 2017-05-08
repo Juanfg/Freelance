@@ -15,6 +15,9 @@
 	<link rel="stylesheet" type="text/css" href="{{ asset('css/theme/blue.css') }}">
 	<link rel="stylesheet" type="text/css" href="{{ asset('css/theme/red.css') }}">
 	<link rel="stylesheet" type="text/css" href="{{ asset('css/theme/yellow.css') }}">
+	<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/intro.js/2.5.0/introjs.css">
+
+  	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/intro.js/2.5.0/intro.js"></script>
 
 </head>
 <body>
@@ -47,6 +50,14 @@
 								<li><a href="{{ route('projects.create') }}">New Project</a></li>
 							</ul>
 						</div>
+					</li>
+					<li>				
+						<a href="javascript:void(0);" onclick="javascript:introJs().setOption('showBullets', false).start();">
+							<div class="icon">
+								<i class="fa fa-home" aria-hidden="true"></i>
+							</div>
+							<div class="title">Help me please</div>
+						</a>
 					</li>
 				</ul>
 			</div>

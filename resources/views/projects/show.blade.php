@@ -30,8 +30,8 @@
                                     <img src="{{ Storage::url($photo->path) }}" style="width:100%; height:500px; object-fit:cover;">
                                 </div>
                             @endforeach
-                            <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
-                            <a class="next" onclick="plusSlides(1)">&#10095;</a>
+                            <a class="prev" onclick="plusSlides(-1)" data-step="2" data-intro="Move to the previous image" data-position="right">&#10094;</a>
+                            <a class="next" onclick="plusSlides(1)"  data-step="3" data-intro="Move to the next image" data-position="left">&#10095;</a>
                         </div>
                     </div>
                 </div>
@@ -39,7 +39,7 @@
         </div>
     </div>
 
-    <div class="row">
+    <div class="row" data-step="1" data-intro="This is the complete information related to the project" data-position="top">
         <div class="col-md-12">
             <div class="card card-banner card-green-light">
                 <div class="card-body">
@@ -75,7 +75,7 @@
         </div>
         @if ($project->document)
             <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
-                <a href="/downloadDocument/{{ $project->id }}" class="card card-banner card-blue-light">
+                <a href="/downloadDocument/{{ $project->id }}" class="card card-banner card-blue-light" data-step="4" data-intro="If you want to see the document related, click here" data-position="left">
                     <div class="card-body">
                         <i class="icon fa fa-file"></i>
                         <div class="content">

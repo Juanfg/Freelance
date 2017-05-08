@@ -23,17 +23,23 @@ Route::group(['middleware' => 'auth'], function(){
 
     Route::get('/', 'HomeController@index')->name('home');
     Route::resource('projects', 'ProjectController');
-    Route::resource('users', 'UserController');
+    Route::resource('users', 'UserController');    
+
     Route::get('/collaborating', 'ProjectController@collaborating')->name('collaborating_projects');
     Route::post('/joinProject/{id}', 'ProjectController@join')->name('join_project');
     Route::post('/leaveProject/{id}', 'ProjectController@leave')->name('leave_project');
     Route::post('/finishProject/{id}', 'ProjectController@finish')->name('finish_project');
     Route::get('/downloadDocument/{id}', 'ProjectController@downloadDocument');
+    Route::get('/grade_collaborators', 'ProjectController@grade_collaborators')->name('grade_collaborators');
 
     Route::get('/manage_users','UserController@getAllUsers')->name('manage_users');
     Route::get('/manage_projects','ProjectController@getAllProjects')->name('manage_projects');
     Route::get('/manage_categories','CategoryController@getAllCategories')->name('manage_categories');
     Route::get('/create_category', 'CategoryController@create')->name('create_category');
+    Route::get('/edit_category/{id}', 'CategoryController@edit')->name('edit_category');
+    Route::put('/update_category/{id}', 'CategoryController@update_category')->name('update_category');
+    Route::post('/store_category','CategoryController@store')->name('store_category');
+
 
     Route::get('/deactivate_user/{id}', 'UserController@deactivateUser')->name('deactivate_user');
     Route::get('/activate_user/{id}', 'UserController@activateUser')->name('activate_user');

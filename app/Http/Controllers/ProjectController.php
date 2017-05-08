@@ -251,6 +251,11 @@ class ProjectController extends Controller
         return view('admin.manage_projects',['projects' => $projects]);
     }
 
+    public function grade_collaborators()
+    {
+        return view('projects.grading');
+    }
+
     public function activateProject($id)
     {
         $projects = Project::all();

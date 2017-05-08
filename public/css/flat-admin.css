@@ -3845,6 +3845,7 @@ ui-view > .app-messaging-container {
         border-radius: 2px; }
   .card .card-body {
     padding: 30px;
+    height: 100%;
     }
   .card .card-body-title {
     padding: 30px;

@@ -25,10 +25,11 @@
                                 <td>{{ $category->name }}</td>
                                 <td>
                                 	@if($category->active)
-                                		<a class="btn btn-primary btn-xs" href="{{route('deactivate_category', [$category->id])}}"><i class="fa fa-times"></i></a>
+                                		<a class="btn btn-danger btn-xs" href="{{route('deactivate_category', [$category->id])}}"><i class="fa fa-times"></i></a>
                                 	@else
-                                		<a class="btn btn-warning btn-xs" href="{{route('activate_category', [$category->id])}}"><i class="fa fa-pencil"></i></a>
-                                	@endif	
+                                		<a class="btn btn-success btn-xs" href="{{route('activate_category', [$category->id])}}"><i class="fa fa-check"></i></a>
+                                	@endif
+                                        <a class="btn btn-warning btn-xs" href="{{route('edit_category', [$category->id])}}"><i class="fa fa-pencil"></i></a>
                                 </td>
                             </tr>
                         @endforeach

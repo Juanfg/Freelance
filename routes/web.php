@@ -24,8 +24,14 @@ Route::group(['middleware' => 'auth'], function(){
     Route::get('/', 'HomeController@index')->name('home');
     Route::resource('projects', 'ProjectController');
     Route::resource('users', 'UserController');
-
+    Route::get('/manage_users','UserController@getAllUsers')->name('manage_users');
 
     Route::get('/downloadDocument/{id}', 'ProjectController@downloadDocument');
+
+
+    Route::get('/deactivate_user/{id}', 'UserController@deactivateUser')->name('deactivate_user');
+    Route::get('/activate_user/{id}', 'UserController@activateUser')->name('activate_user');
+
+
 });
 

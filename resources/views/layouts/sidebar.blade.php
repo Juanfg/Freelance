@@ -51,10 +51,18 @@
 							</ul>
 						</div>
 					</li>
+					<li class="{{ Request::is('collaborating') || Request::is('collaborating/*') ? 'active' : '' }}">
+						<a href="{{ route('collaborating_projects') }}">
+							<div class="icon">
+								<i class="fa fa-group" aria-hidden="true"></i>
+							</div>
+							<div class="title">Collaborating</div>
+						</a>
+					</li>
 					<li>				
 						<a href="javascript:void(0);" onclick="javascript:introJs().setOption('showBullets', false).start();">
 							<div class="icon">
-								<i class="fa fa-home" aria-hidden="true"></i>
+								<i class="fa fa-question" aria-hidden="true"></i>
 							</div>
 							<div class="title">Help me please</div>
 						</a>

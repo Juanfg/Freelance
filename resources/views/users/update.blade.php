@@ -57,7 +57,7 @@
                             <label for="name">New password:</label>
                             <div class="input-group">
                                 <span class="input-group-addon"><i class="fa fa-user"></i></span>
-                                <input class="form-control" type="password" name="password" placeholder="Password" id="password"}}">
+                                <input class="form-control" type="password" name="password" placeholder="Password" id="password"}}>
                             </div>
                         </div>
 

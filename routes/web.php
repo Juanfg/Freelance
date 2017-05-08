@@ -24,8 +24,10 @@ Route::group(['middleware' => 'auth'], function(){
     Route::get('/', 'HomeController@index')->name('home');
     Route::resource('projects', 'ProjectController');
     Route::resource('users', 'UserController');
-
-
+    Route::get('/collaborating', 'ProjectController@collaborating')->name('collaborating_projects');
+    Route::post('/joinProject/{id}', 'ProjectController@join')->name('join_project');
+    Route::post('/leaveProject/{id}', 'ProjectController@leave')->name('leave_project');
+    Route::post('/finishProject/{id}', 'ProjectController@finish')->name('finish_project');
     Route::get('/downloadDocument/{id}', 'ProjectController@downloadDocument');
 });
 

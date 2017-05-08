@@ -212,4 +212,36 @@ class ProjectController extends Controller
         $file = str_replace("public", "storage", $project->document);
         return Response::download($file);
     }
+
+    public function collaborating()
+    {
+        $current_user = Auth::user();
+        $projects_collaborating = User::find($current_user)->projectsCollaborating()->where('projects.active', true)->wherePivot('active', true)->get();
+        return view('projects.collaborating', ['projects' => $projects_collaborating]);
+    }
+
+    public function join($id)
+    {
+        $current_user = Auth::user();
+        $project = Project::find($id);
+        $project->collaborators()->attach([$current_user->id]);
+        return ['success' => true];
+    }
+
+    public function leave($id)
+    {
+        $current_user = Auth::user();
+        $project = Project::find($id);
+        $project->collaborators()->detach([$current_user->id]);
+        return ['success' => true];
+    }
+
+    public function finish($id)
+    {
+        $current_user = Auth::user();
+        $project = Project::find($id);
+        $project->active = false;
+        $project->save();
+        return ['success' => true];
+    }
 }

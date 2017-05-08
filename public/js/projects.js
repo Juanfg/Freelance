@@ -33,6 +33,71 @@ $( document ).ready(function() {
 		}
 	});
 
+	$(".join").click(function(){
+		var id = $(this).closest('tr').attr('data-id');
+		if (!id)
+			id = $(this).closest('a').attr('data-id');
+		var r = confirm("Are you sure you want to join this project?");
+		if (r) {
+			$(this).closest('tr').fadeOut();
+			$.post('/joinProject/' + id, { _method: "POST" }, function(response){
+				if (response.success){
+					var url = "/projects/" + id;
+					$(location).attr('href',url);
+					$('.messages').prepend("<div class='alert alert-success'><a class='close' data-dismiss='alert' aria-label='close'>&times;</a>Notification sent!</div>");
+				}
+				else {
+					alert("I'm sorry we couldn't make you join this project. Please try again. If the problem persists contact us.");
+				}
+			}).fail(function(){
+				alert("I'm sorry we couldn't make you join this project. Please try again. If the problem persists contact us.");
+			});  
+		}
+	});
+
+	$(".leave").click(function(){
+		var id = $(this).closest('tr').attr('data-id');
+		if (!id)
+			id = $(this).closest('a').attr('data-id');
+		var r = confirm("Are you sure you want to leave this project?");
+		if (r) {
+			$(this).closest('tr').fadeOut();
+			$.post('/leaveProject/' + id, { _method: "POST" }, function(response){
+				if (response.success)
+					$(this).closest('tr').remove();
+				else {
+					alert("I'm sorry we couldn't let you leave this project. Please try again. If the problem persists contact us.");
+					$(this).closest('tr').fadeIn();
+				}
+			}).fail(function(){
+				alert("I'm sorry we couldn't let you leave this project. Please try again. If the problem persists contact us.");
+				$(this).closest('tr').fadeIn();
+			});  
+		}
+	});
+
+	$(".finish").click(function(){
+		var id = $(this).closest('tr').attr('data-id');
+		if (!id)
+			id = $(this).closest('a').attr('data-id');
+		var r = confirm("Are you sure you finish this project? This action is irreversible");
+		if (r) {
+			$.post('/finishProject/' + id, { _method: "POST" }, function(response){
+				if (response.success)
+				{
+					var url = "/projects/" + id;
+					$(location).attr('href',url);
+					$('.messages').prepend("<div class='alert alert-success'><a class='close' data-dismiss='alert' aria-label='close'>&times;</a>Project finished!</div>");
+				}
+				else {
+					alert("I'm sorry we couldn't finish this project for you. Please try again. If the problem persists contact us.");
+				}
+			}).fail(function(){
+				alert("I'm sorry we couldn't finish this project for you. Please try again. If the problem persists contact us.");
+			});  
+		}
+	});
+
 	// For categories
 	$(".draggable").draggable();
     $("#droppable").droppable({

@@ -1,6 +1,6 @@
 @extends('layouts.sidebar')
 
-@section('title', $project->name);
+@section('title', $project->name)
 
 @section('content')
 
@@ -105,7 +105,7 @@
             
             @if($status==2)
             <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
-                <a href="#" class="card card-banner card-green-light">
+                <a class="card card-banner card-green-light join" data-id="{{ $project->id }}">
                     <div class="card-body">
                         <i class="icon fa fa-user-plus"></i>
                         <div class="content">
@@ -117,7 +117,7 @@
             </div>
             @elseif($status==1)
             <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
-                <a href="#" class="card card-banner card-orange-light">
+                <a class="card card-banner card-orange-light finish" data-id="{{ $project->id }}">
                     <div class="card-body">
                         <i class="icon fa fa-check-square"></i>
                         <div class="content">
@@ -128,7 +128,7 @@
                 </a>
             </div>
             <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
-                <a class="card card-banner card-blue-light edit" data-id="{{$project->id}}">
+                <a class="card card-banner card-blue-light edit" data-id="{{ $project->id }}">
                     <div class="card-body">
                         <i class="icon fa fa-check-square"></i>
                         <div class="content">

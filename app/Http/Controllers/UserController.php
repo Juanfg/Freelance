@@ -22,7 +22,7 @@ class UserController extends Controller
     public function show($id)
     {
         $user = User::where('id', $id)->firstOrFail();
-        $finished_projects = $user->projectsCollaborating()->where('active',false)->get();
+        $finished_projects = $user->projectsCollaborating()->where('projects.active',false)->wherePivot('active', true)->get();
         return view('users.show', ['user' => $user, 'finished_projects' => $finished_projects]);
     }
 

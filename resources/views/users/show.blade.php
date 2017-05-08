@@ -111,14 +111,20 @@
                       </tr>
                     </thead>
                     <tbody>
-                      <tr>
-                        <td>Proyecto</td>
-                        <td>Nombre del usuario</td>
-                        <td>Correo</td>
-                        <td>
-                          <button class="btn btn-success btn-xs edit"><i class="fa fa-check"></i></button>
-                        </td>
-                      </tr>
+                      @foreach ($projects_requests as $project)
+                        @if ($project->not_accepted_collaborators)
+                          @foreach ($project->not_accepted_collaborators as $collaborator)
+                            <tr collaborator="{{ $collaborator->id }}" project="{{ $project->id }}">
+                              <td><a href="{{ route('projects.show', $project->id) }}">{{ $project->name }}</a></td>
+                              <td><a href="{{ route('users.show', $collaborator->id) }}">{{ $collaborator->name }}</a></td>
+                              <td>{{ $collaborator->email }}</td>
+                              <td>
+                                <button class="btn btn-success btn-xs accept"><i class="fa fa-check"></i></button>
+                              </td>
+                            </tr>
+                          @endforeach
+                        @endif
+                      @endforeach
                     </tbody>
                   </table>
                 </div>
@@ -133,3 +139,7 @@
 
 
 @endsection
+
+@push('scripts')
+    <script src="{{ asset('js/projects.js') }}"></script>
+@endpush

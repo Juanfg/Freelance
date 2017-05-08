@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\DB;
 use App\Project;
 use App\Category;
 use App\Photo;
@@ -272,5 +273,11 @@ class ProjectController extends Controller
         $project->active = false;
         $project->save();
         return redirect()->route('manage_projects', ['projects' => $projects]);
+    }
+
+    public function addCollaborator(Request $request, $id)
+    {
+        DB::table('collaborators_projects')->where('user_id', $request['collaborator'])->where('project_id', $id)->update(['active' => true]);
+        return ['success' => true];
     }
 }

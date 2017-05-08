@@ -14,33 +14,25 @@ use App\User;
 
 class UserController extends Controller
 {
-    public function index()
-    {
-        
-    }
 
     public function show($id)
     {
         $user = User::where('id', $id)->firstOrFail();
         $finished_projects = $user->projectsCollaborating()->where('projects.active',false)->wherePivot('active', true)->get();
-        return view('users.show', ['user' => $user, 'finished_projects' => $finished_projects]);
-    }
-
-    public function create()
-    {
-        
-    }
-
-    public function store(Request $request)
-    {
-
+        $projects_requests = User::find($id)->projects()->where('active', true)->get();
+        foreach ($projects_requests as $project)
+        {
+            $not_collaborating = $project->collaborators()->wherePivot('active', false)->get();
+            if ($not_collaborating)
+                $project->not_accepted_collaborators = $not_collaborating;
+        }
+        return view('users.show', ['user' => $user, 'finished_projects' => $finished_projects, 'projects_requests' => $projects_requests]);
     }
 
     public function edit($id)
     {
         $user = User::where('id', $id)->firstOrFail();
-        return view('users.update',['user' => $user]);
-        
+        return view('users.update',['user' => $user]);  
     }
 
     public function update(Request $request, $id)

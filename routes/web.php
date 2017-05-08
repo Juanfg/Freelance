@@ -47,5 +47,7 @@ Route::group(['middleware' => 'auth'], function(){
     Route::get('/activate_project/{id}', 'ProjectController@activateProject')->name('activate_project');
     Route::get('/deactivate_category/{id}', 'CategoryController@deactivateCategory')->name('deactivate_category');
     Route::get('/activate_category/{id}', 'CategoryController@activateCategory')->name('activate_category');
+
+    Route::post('/addCollaborator/{id}', 'ProjectController@addCollaborator')->name('add_collaborator');
 });
 

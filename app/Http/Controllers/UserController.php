@@ -22,7 +22,8 @@ class UserController extends Controller
     public function show($id)
     {
         $user = User::where('id', $id)->firstOrFail();
-        return view('users.show', ['user' => $user]);
+        $finished_projects = $user->projectsCollaborating()->where('active',false)->get();
+        return view('users.show', ['user' => $user, 'finished_projects' => $finished_projects]);
     }
 
     public function create()
@@ -98,5 +99,29 @@ class UserController extends Controller
         $user = User::where('id', $id)->first();
         $file = str_replace("public", "storage", $user->resume);
         return Response::download($file);
+    }
+
+    public function getAllUsers()
+    {
+        $users = User::all();
+        return view('admin.manage_users',['users' => $users]);
+    }
+
+    public function activateUser($id)
+    {
+        $users = User::all();
+        $user = User::find($id);
+        $user->active = true;
+        $user->save();
+        return redirect()->route('manage_users', ['users' => $users]);
+    }
+
+    public function deactivateUser($id)
+    {
+        $users = User::all();
+        $user = User::find($id);
+        $user->active = false;
+        $user->save();
+        return redirect()->route('manage_users', ['users' => $users]);
     }
 }

@@ -67,6 +67,14 @@
 							<div class="title">Help me please</div>
 						</a>
 					</li>
+					<li class="{{ !Request::is('manage_users') ? : 'active' }}">
+						<a href="{{ route('manage_users') }}">
+							<div class="icon">
+								<i class="fa fa-home" aria-hidden="true"></i>
+							</div>
+							<div class="title">Manage Users</div>
+						</a>
+					</li>
 				</ul>
 			</div>
 		</aside>

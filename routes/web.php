@@ -28,6 +28,11 @@ Route::group(['middleware' => 'auth'], function(){
     Route::post('/joinProject/{id}', 'ProjectController@join')->name('join_project');
     Route::post('/leaveProject/{id}', 'ProjectController@leave')->name('leave_project');
     Route::post('/finishProject/{id}', 'ProjectController@finish')->name('finish_project');
+    Route::get('/manage_users','UserController@getAllUsers')->name('manage_users');
     Route::get('/downloadDocument/{id}', 'ProjectController@downloadDocument');
+    Route::get('/deactivate_user/{id}', 'UserController@deactivateUser')->name('deactivate_user');
+    Route::get('/activate_user/{id}', 'UserController@activateUser')->name('activate_user');
+
+
 });
 

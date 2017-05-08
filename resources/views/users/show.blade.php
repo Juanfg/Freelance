@@ -26,6 +26,13 @@
             <li role="tab1" class="active">
               <a href="#tab1" aria-controls="tab1" role="tab" data-toggle="tab">Profile</a>
             </li>
+
+            @if($user->id == Auth::user()->id)
+            <li role="tab2">
+              <a href="#tab2" aria-controls="tab2" role="tab" data-toggle="tab">Requests</a>
+            </li>
+            @endif
+
           </ul>
         </div>
         <div class="card-body no-padding tab-content">
@@ -55,30 +62,72 @@
                 <div class="section">
                   <div class="section-title">Projects I've collaborated in</div>
                   <div class="section-body">
+                  @foreach($finished_projects as $project)
                     <div class="media social-post">
                       <div class="media-left">
                         <a href="#">
-                          <img src="../assets/images/profile.png" />
+                          @if($project->photos())
+                          <img src="{{ Storage::url($project->photos()->get()[0]->path) }}" />
+                          @endif
                         </a>
                       </div>
+                      
                       <div class="media-body">
                         <div class="media-heading">
-                          <h4 class="title">Project name here</h4>
-                          <h5 class="timeing">Categories</h5>
+                          <a href="{{ route('projects.show', [ $project->id]) }}"><h4 class="title">{{$project->name}}</h4></a>
+                          <h5 class="timeing">
+                            @foreach ($project->categories()->get() as $category)
+                              <button type="button" class="btn btn-primary btn-xs">{{$category->name}}</button>
+                            @endforeach
+                          </h5>
                         </div>
-                        <div class="media-content">Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin commodo. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate.</div>
-                      </div>
+                        <div class="media-content">{{$project->description}}</div>
+                      </div>                     
                     </div>
+                    @endforeach
                   </div>
                 </div>
               </div>
             </div>
+            @if($user->id == Auth::user()->id)
+              <a class="btn btn-success margin-top" href="{{ route('users.edit', [ Auth::user()]) }}">Update Profile</a>
+            @endif
           </div>
+
+          <div role="tabpanel" class="tab-pane" id="tab2">
+            
+              
+                <div class="card-header">
+                  Pending Requests
+                </div>
+                <div class="card-body no-padding">
+                  <table class="datatable table table-striped primary" cellspacing="0" width="100%">
+                    <thead>
+                      <tr>
+                        <th>Project</th>
+                        <th>User name</th>
+                        <th>Email</th>
+                        <th>Accept</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>Proyecto</td>
+                        <td>Nombre del usuario</td>
+                        <td>Correo</td>
+                        <td>
+                          <button class="btn btn-success btn-xs edit"><i class="fa fa-check"></i></button>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+             
+           
+          </div>
+
         </div>
       </div>
-        @if($user->id == Auth::user()->id)
-		      <a class="btn btn-success margin-top" href="{{ route('users.edit', [ Auth::user()]) }}">Update Profile</a>
-        @endif
     </div>   
   </div>
 

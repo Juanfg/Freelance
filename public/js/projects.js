@@ -8,6 +8,8 @@ $( document ).ready(function() {
 
 	$(".edit").click(function(){
 		var id = $(this).closest('tr').attr('data-id');
+		if (!id)
+			id = $(this).closest('a').attr('data-id');
 		var url = "/projects/" + id + "/edit";
 		$(location).attr('href',url);
 	});

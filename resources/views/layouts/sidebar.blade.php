@@ -43,7 +43,7 @@
 						<div class="dropdown-menu">
 							<ul>
 								<li class="section"><i class="fa fa-book" aria-hidden="true"></i>Projects</li>
-								<li><a href="{{ route('projects.index') }}">My Projects</a></li>
+								<li><a href="{{ route('projects.index') }}">My Submitted Projects</a></li>
 								<li><a href="{{ route('projects.create') }}">New Project</a></li>
 							</ul>
 						</div>
@@ -70,7 +70,7 @@
 									</div>
 									<ul class="action">
 										<li>
-											<a href="#">
+											<a href="{{ route('users.show', [ Auth::user()]) }}">
 												Profile
 											</a>
 										</li>

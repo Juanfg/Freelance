@@ -3,6 +3,22 @@
 @section('title', $project->name);
 
 @section('content')
+
+    @if($status==4)
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card card-banner card-red-light">
+                    <div class="card-body">
+                        <i class="icon fa fa-exclamation-triangle"></i>
+                        <div class="content">
+                            <div class="value">This project was already completed</div>
+                        </div>  
+                    </div>
+                </div>
+            </div>
+        </div>
+    @endif
+
     <div class="row">
         <div class="col-xs-12">
             <a class="card card-banner">
@@ -85,6 +101,56 @@
                 </div>
             </div>
         @endif
+
+            
+            @if($status==2)
+            <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                <a href="#" class="card card-banner card-green-light">
+                    <div class="card-body">
+                        <i class="icon fa fa-user-plus"></i>
+                        <div class="content">
+                            <div class="title">Click here to</div>
+                            <div class="value">Join</div>
+                        </div>
+                    </div>
+                </a>
+            </div>
+            @elseif($status==1)
+            <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                <a href="#" class="card card-banner card-orange-light">
+                    <div class="card-body">
+                        <i class="icon fa fa-check-square"></i>
+                        <div class="content">
+                            <div class="title">Click here to</div>
+                            <div class="value">Finish</div>
+                        </div>
+                    </div>
+                </a>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                <a class="card card-banner card-blue-light edit" data-id="{{$project->id}}">
+                    <div class="card-body">
+                        <i class="icon fa fa-check-square"></i>
+                        <div class="content">
+                            <div class="title">Click here to</div>
+                            <div class="value">Edit</div>
+                        </div>
+                    </div>
+                </a>
+            </div>
+            @elseif($status==3)
+            <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                <a href="#" class="card card-banner card-red-light">
+                    <div class="card-body">
+                        <i class="icon fa fa-times"></i>
+                        <div class="content">
+                            <div class="title">Click here to</div>
+                            <div class="value">Leave</div>
+                        </div>
+                    </div>
+                </a>
+            </div>            
+            @endif           
     </div>
 @endsection
 

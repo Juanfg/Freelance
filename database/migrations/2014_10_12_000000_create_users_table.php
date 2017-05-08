@@ -23,6 +23,8 @@ class CreateUsersTable extends Migration
             $table->string('resume')->nullable();
             $table->string('profile_picture')->default('public/images/defaultProfilePicture.png');
             $table->boolean('active')->default(1);
+            $table->string('bio')->nullable();
+            $table->string('subtitle')->default('Freelancers User');
             $table->timestamps();
         });
     }

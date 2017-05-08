@@ -24,7 +24,11 @@
                     <tbody>
                         @foreach ($projects as $project)
                             <tr data-id="{{ $project->id }}">
-                                <td><a href="{{ route('projects.show', [ $project->id]) }}"><img src="{{Storage::url($project->photos()->first()->path)}}" width=80 height=80 class="img-responsive img-thumbnail"></td>
+                                <td>
+                                    @if ($project->photos()->first())
+                                        <a href="{{ route('projects.show', [ $project->id]) }}"><img src="{{Storage::url($project->photos()->first()->path)}}" width=80 height=80 class="img-responsive img-thumbnail">
+                                    @endif
+                                </td>
                                 <td>{{ $project->name }}</td>                    
                                 <td>{{ $project->difficulty }}</td>
                                 <td>{{ $project->document ? 'YES' : 'NO' }}</td>

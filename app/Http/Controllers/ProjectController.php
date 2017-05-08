@@ -24,7 +24,28 @@ class ProjectController extends Controller
     public function show($id)
     {
         $project = Project::where('id', $id)->firstOrFail();
-        return view('projects.show', ['project' => $project]);
+        $current_user = Auth::user();
+        $project_collaborators = Project::find($id)->collaborators()->get();
+        $status=0;
+        if($project->owner == $current_user->id && $project->active)
+            $status=1; //Finish Project
+        else if ($project->owner != $current_user->id && $project->active)
+        {
+            $status=2; //Join Project
+            foreach($project_collaborators as $collaborator)
+            {
+                if($current_user->id == $collaborator->id)
+                {
+                    $status=3; //Leave Project
+                    break;
+                }
+            }           
+        }
+        else if(!$project->active)
+            $status=4; //Project is already finished
+    
+
+        return view('projects.show', ['project' => $project, 'status' => $status]);
     }
 
     public function create()

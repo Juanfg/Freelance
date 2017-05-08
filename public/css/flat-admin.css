@@ -3810,7 +3810,7 @@ ui-view > .app-messaging-container {
   background-color: #FFF;
   border-radius: 3px;
   box-shadow: 0 1px 2px #c8d1d3;
-  float: left; }
+  }
 
   .card .card-header {
     padding: 30px;

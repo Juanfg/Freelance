@@ -98,6 +98,28 @@ $( document ).ready(function() {
 		}
 	});
 
+	$(".accept").click(function(){
+		var collaborator_id = $(this).closest('tr').attr('collaborator');
+		var project_id = $(this).closest('tr').attr('project');
+		var r = confirm("Are you sure you want this user to be part of your project?");
+		if (r) {
+			$(this).closest('tr').fadeOut();
+			$.post('/addCollaborator/' + project_id, { _method: "POST", collaborator: collaborator_id }, function(response){
+				if (response.success)
+				{
+					var url = "/projects/" + project_id;
+					$(location).attr('href',url);
+					$('.messages').prepend("<div class='alert alert-success'><a class='close' data-dismiss='alert' aria-label='close'>&times;</a>User now collaborating!</div>");
+				}
+				else {
+					alert("I'm sorry we couldn't add this user to your project. Please try again. If the problem persists contact us.");
+				}
+			}).fail(function(){
+				alert("I'm sorry we couldn't add this user to your project. Please try again. If the problem persists contact us.");
+			});  
+		}
+	});
+
 	// For categories
 	$(".draggable").draggable();
     $("#droppable").droppable({
@@ -229,14 +251,10 @@ function currentSlide(n) {
 function showSlides(n) {
   var i;
   var slides = document.getElementsByClassName("mySlides");
-  var dots = document.getElementsByClassName("dot");
   if (n > slides.length) {slideIndex = 1} 
   if (n < 1) {slideIndex = slides.length}
   for (i = 0; i < slides.length; i++) {
       slides[i].style.display = "none"; 
-  }
-  for (i = 0; i < dots.length; i++) {
-      dots[i].className = dots[i].className.replace(" active", "");
   }
   slides[slideIndex-1].style.display = "block"; 
 }

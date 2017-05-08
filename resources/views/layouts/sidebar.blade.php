@@ -6,7 +6,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<meta name="csrf-token" content="{{ csrf_token() }}" />
 
-	<link rel="stylesheet" type="text/css" href="{{ asset('css/vendor.css') }}">
+	<link rel="stylesheet" type="text/css" href="{{ asset('css/vendor.css')}}">
 	<link rel="stylesheet" type="text/css" href="{{ asset('css/flat-admin.css') }}">
 	<link rel="stylesheet" type="text/css" href="{{ asset('css/custom.css') }}">
 
@@ -132,7 +132,7 @@
 		</div>
 	</div>
   
-	<script type="text/javascript" src="{{ asset('js/vendor.js') }}"></script>
+	<script type="text/javascript" src="{{ asset('js/vendor.min.js') }}"></script>
 	<script type="text/javascript" src="{{ asset('js/app-sidebar.js') }}"></script>
 	<script src="{{ asset('js/jquery-1.11.1.js') }}"></script>
 	<script src = "https://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>

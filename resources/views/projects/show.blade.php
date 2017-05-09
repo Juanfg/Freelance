@@ -41,7 +41,7 @@
 
     <div class="row" data-step="1" data-intro="This is the complete information related to the project" data-position="top">
 
-        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12"  data-step="1" data-intro="This is the complete information related to the project" data-position="top">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12"  data-step="1" data-intro="The owner of this project made a really hard work writing this description just for you. Why not have a closer look at what he has to say about his project?" data-position="top">
             <a class="card card-banner card-green-light">
                 <div class="card-body">
                     <div class="content">
@@ -76,7 +76,7 @@
         </div>
         @if ($project->document)
             <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
-                <a href="/downloadDocument/{{ $project->id }}" class="card card-banner card-blue-light" data-step="4" data-intro="If you want to see the document related, click here" data-position="left">
+                <a href="/downloadDocument/{{ $project->id }}" class="card card-banner card-blue-light" data-step="4" data-intro="The owner left you a document with an even deeper inside about the project itself! Click this box to download it right now." data-position="left">
                     <div class="card-body">
                         <i class="icon fa fa-file"></i>
                         <div class="content">

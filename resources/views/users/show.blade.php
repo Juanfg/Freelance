@@ -56,7 +56,21 @@
                       </div>
                     </a>
                   </div>
-                @endif
+                  @endif
+                  @if($user->id == Auth::user()->id)
+                  <div class="section" data-step="5" data-intro="Make sure you keep updating your profile with the latest information!" data-position='top'>
+                    <div class="section-title"><i class="icon fa fa-gear" aria-hidden="true"></i> Edit Profile</div>
+                      <a href="{{ route('users.edit', [ Auth::user()]) }}" class="card card-banner card-orange-light">
+                          <div class="card-body">
+                            <i class="icon fa fa-gear"></i>
+                            <div class="content">
+                                <div class="title">Click here to </div>
+                                <div class="value">Edit</div>
+                          </div>
+                      </div>
+                    </a>
+                  </div>
+                  @endif
               </div>
               <div class="col-md-9 col-sm-12">
                 <div class="section" data-step="3" data-intro="When a project you've worked on is finished by the owner, it will be shown here. Look at this as your resume throughout your life on this platform!" data-position='top'>
@@ -89,9 +103,6 @@
                 </div>
               </div>
             </div>
-            @if($user->id == Auth::user()->id)
-              <a class="btn btn-success margin-top" href="{{ route('users.edit', [ Auth::user()]) }}" data-step="5" data-intro="Make sure you keep updating your profile with the latest information!" data-position='top'>Update Profile</a>
-            @endif
           </div>
 
           <div role="tabpanel" class="tab-pane" id="tab2">

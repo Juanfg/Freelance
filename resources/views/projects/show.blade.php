@@ -140,7 +140,7 @@
             </div>
             @elseif($status==3)
             <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
-                <a href="#" class="card card-banner card-red-light">
+                <a class="card card-banner card-red-light leave" data-id="{{ $project->id }}" >
                     <div class="card-body">
                         <i class="icon fa fa-times"></i>
                         <div class="content">

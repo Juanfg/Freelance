@@ -28,8 +28,9 @@ class HomeController extends Controller
     public function index()
     {
         $current_user = Auth::user();
-        $projects_user = User::find($current_user->id)->projects()->pluck('id');
-        $projects = Project::whereNotIn('id', $projects_user)->get();
+        $projects_user = User::find($current_user->id)->projects()->pluck('projects.id');
+        $projects_collaborating = User::find($current_user->id)->projectsCollaborating()->pluck('projects.id');
+        $projects = Project::whereNotIn('id', $projects_collaborating)->whereNotIn('id', $projects_user)->get();
         return view('home', ['projects' => $projects]);
     }
 }

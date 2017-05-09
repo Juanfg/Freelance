@@ -8,9 +8,6 @@
 	@foreach($projects as $project)
 	<div class="col-xs-3">
 		<div class="card card-mini"  data-step="2" data-intro="This is a single project" data-position='top'>
-			<div class="card-header">
-				<H1>Hola</H1>
-			</div>
 			<div class="card-body-title style=" display: "inline-block;" data-step="3" data-intro="This is the name of the project" data-position='top'>
 				{{$project->name}}
 			</div>

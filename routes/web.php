@@ -30,7 +30,7 @@ Route::group(['middleware' => 'auth'], function(){
     Route::post('/leaveProject/{id}', 'ProjectController@leave')->name('leave_project');
     Route::post('/finishProject/{id}', 'ProjectController@finish')->name('finish_project');
     Route::get('/downloadDocument/{id}', 'ProjectController@downloadDocument');
-    Route::get('/grade_collaborators', 'ProjectController@grade_collaborators')->name('grade_collaborators');
+    Route::get('/grade_collaborators/{id}', 'ProjectController@grade_collaborators')->name('grade_collaborators');
 
     Route::get('/manage_users','UserController@getAllUsers')->name('manage_users');
     Route::get('/manage_projects','ProjectController@getAllProjects')->name('manage_projects');

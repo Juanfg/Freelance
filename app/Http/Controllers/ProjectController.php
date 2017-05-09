@@ -51,7 +51,7 @@ class ProjectController extends Controller
 
     public function create()
     {
-        $categories = Category::all();
+        $categories = Category::where('active', true)->get();
         return view('projects.create', ['categories' => $categories]);
     }
 
@@ -60,8 +60,8 @@ class ProjectController extends Controller
         // Validate the input
 
         $validator = Validator::make($request->all(), [
-            'name'          => 'required|string',
-            'description'   => 'required|string',
+            'name'          => 'required|string|max:100',
+            'description'   => 'required|string|max:500',
             'difficulty'    => 'required|numeric',
         ]);
 
@@ -88,6 +88,14 @@ class ProjectController extends Controller
         if ($request->hasFile('photos'))
         {
             $files = $request->file('photos');
+
+            $validator = Validator::make($request->all(), [
+                'photos.*' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048'
+            ]);
+
+            if ($validator->fails()) 
+                return ['error' => true, 'errors' => $validator->errors()->all()];
+
             foreach ($files as $file)
             {
                 $path = $file->store('public/images');
@@ -100,6 +108,13 @@ class ProjectController extends Controller
 
         if ($request->hasFile('document'))
         {
+            $validator = Validator::make($request->all(), [
+                'document' => 'mimes:pdf,png,jpg,jpeg,doc,docx'
+            ]);
+
+            if ($validator->fails()) 
+                return ['error' => true, 'errors' => $validator->errors()->all()];
+
             $path = $request->document->store('public/documents');
             $project->document = $path;
             $project->save();
@@ -120,10 +135,13 @@ class ProjectController extends Controller
     public function update(Request $request, $id)
     {
         $validator = Validator::make($request->all(), [
-            'name'          => 'required|string',
-            'description'   => 'required|string',
+            'name'          => 'required|string|max:100',
+            'description'   => 'required|string|max:500',
             'difficulty'    => 'required|numeric',
         ]);
+
+        if ($validator->fails()) 
+            return ['error' => true, 'errors' => $validator->errors()->all()];
 
         $current_photos = explode(",", $request->current_photos);
         $photos_to_delete = Project::find($id)->photos()->whereNotIn('id', $current_photos)->select('id')->get();
@@ -144,13 +162,13 @@ class ProjectController extends Controller
             $isInCollection = false;
             foreach ($current_categories as $category)
             {
-                if ($category->id == $categories_request[$i])
+                if (!$categories_request[$i] || $category->id == $categories_request[$i])
                 {
                     $isInCollection = true;
                     break;
                 }
             }
-            if (!$isInCollection)
+            if (!$isInCollection && $categories_request[$i])
                 array_push($categories_to_add, $categories_request[$i]);
         }
 
@@ -164,6 +182,14 @@ class ProjectController extends Controller
         if ($request->hasFile('photos'))
         {
             $files = $request->file('photos');
+
+            $validator = Validator::make($request->all(), [
+                'photos.*' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048'
+            ]);
+
+            if ($validator->fails()) 
+                return ['error' => true, 'errors' => $validator->errors()->all()];
+
             foreach ($files as $file)
             {
                 $path = $file->store('public/images');
@@ -178,7 +204,13 @@ class ProjectController extends Controller
         $photos = $request['photos'];
         if ($request->hasFile('document'))
         {
-            //TODO: Delete current file if has one
+            $validator = Validator::make($request->all(), [
+                'document' => 'mimes:pdf,png,jpg,jpeg,doc,docx'
+            ]);
+
+            if ($validator->fails()) 
+                return ['error' => true, 'errors' => $validator->errors()->all()];
+
             $path = $request->document->store('public/documents');
             $project->document = $path;
         }
@@ -216,7 +248,7 @@ class ProjectController extends Controller
 
     public function collaborating()
     {
-        $current_user = Auth::user();
+        $current_user = Auth::user()->id;
         $projects_collaborating = User::find($current_user)->projectsCollaborating()->where('projects.active', true)->wherePivot('active', true)->get();
         return view('projects.collaborating', ['projects' => $projects_collaborating]);
     }
@@ -252,9 +284,10 @@ class ProjectController extends Controller
         return view('admin.manage_projects',['projects' => $projects]);
     }
 
-    public function grade_collaborators()
+    public function grade_collaborators($id)
     {
-        return view('projects.grading');
+        $collaborators = Project::find($id)->collaborators()->get();
+        return view('projects.grading', ['collaborators' => $collaborators]);
     }
 
     public function activateProject($id)
@@ -280,4 +313,5 @@ class ProjectController extends Controller
         DB::table('collaborators_projects')->where('user_id', $request['collaborator'])->where('project_id', $id)->update(['active' => true]);
         return ['success' => true];
     }
+
 }

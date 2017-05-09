@@ -8,9 +8,6 @@
 	@foreach($projects as $project)
 	<div class="col-xs-3">
 		<div class="card card-mini"  data-step="2" data-intro="This one here is one of the many projects available." data-position='top'>
-			<div class="card-header">
-				<H1>Hola</H1>
-			</div>
 			<div class="card-body-title style=" display: "inline-block;" data-step="3" data-intro="The title of the project may give you an overall idea of what the project is about." data-position='top'>
 				{{$project->name}}
 			</div>
@@ -20,7 +17,7 @@
 			<div class="card-body-description" data-step="5" data-intro="This is how difficult the project is in a scale from 1 to 10" data-position='top'>
 				Difficulty: {{$project->difficulty}}
 			</div>
-			<div class="card-body-description" data-step="6" data-intro="This project belongs to these categories" data-position='top'>
+			<div class="card-body-description" data-step="6" data-intro="This project belongs to these categories." data-position='top'>
 				@foreach ($project->categories()->get() as $category)
 				<button type="button" class="btn btn-primary btn-xs">{{$category->name}}</button>
 				@endforeach

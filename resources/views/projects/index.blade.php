@@ -30,7 +30,7 @@
                                         <img src="{{Storage::url($project->photos()->first()->path)}}" width=80 height=80 class="img-responsive img-thumbnail">
                                     @endif
                                 </td>
-                                <td >{{ $project->name }}</td>                    
+                                <td ><a href="{{ route('projects.show', [$project->id]) }}" data-step="2" data-intro="You can click here if you want all the information of your project" data-position='top'>{{ $project->name }}</a></td>                    
                                 <td>{{ $project->difficulty }}</td>
                                 <td>{{ $project->document ? 'YES' : 'NO' }}</td>
                                 <td>{{ $project->active ? 'YES' : 'NO' }}</td>

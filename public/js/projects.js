@@ -63,8 +63,11 @@ $( document ).ready(function() {
 		if (r) {
 			$(this).closest('tr').fadeOut();
 			$.post('/leaveProject/' + id, { _method: "POST" }, function(response){
-				if (response.success)
-					$(this).closest('tr').remove();
+				if (response.success){
+					var url = "/projects/" + id;
+					$(location).attr('href',url);
+					$('.messages').prepend("<div class='alert alert-success'><a class='close' data-dismiss='alert' aria-label='close'>&times;</a>You leave the project!</div>");
+				}
 				else {
 					alert("I'm sorry we couldn't let you leave this project. Please try again. If the problem persists contact us.");
 					$(this).closest('tr').fadeIn();
@@ -85,9 +88,8 @@ $( document ).ready(function() {
 			$.post('/finishProject/' + id, { _method: "POST" }, function(response){
 				if (response.success)
 				{
-					var url = "/projects/" + id;
+					var url = "/grade_collaborators/" + id;
 					$(location).attr('href',url);
-					$('.messages').prepend("<div class='alert alert-success'><a class='close' data-dismiss='alert' aria-label='close'>&times;</a>Project finished!</div>");
 				}
 				else {
 					alert("I'm sorry we couldn't finish this project for you. Please try again. If the problem persists contact us.");
@@ -138,7 +140,7 @@ $( document ).ready(function() {
 		var categories = $(".draggable.btn-success").map(function(){
             return this.id;
     	}).get().join(',');
-		var categories = categories.split(',');
+		categories = categories.split(',');
 
 		var form = document.forms.namedItem("form-data");
 		var formData = new FormData(form);
@@ -182,7 +184,7 @@ $( document ).ready(function() {
     	}).get().join(',');
 
 		var current_photos = current_photos.split(',');
-		var categories = categories.split(',');
+		categories = categories.split(',');
 
 		var form = document.forms.namedItem("form-data");
 		var formData = new FormData(form);
@@ -226,7 +228,6 @@ $( document ).ready(function() {
 			plusSlides(1);
 		}
 	});
-
 });
 
 function updateRangeInput(range) {

@@ -53,7 +53,7 @@
         </div>
 
         <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
-            <a href="#" class="card card-banner card-orange-light">
+            <a href="{{ route('users.show', $project->owner()->first()->id) }}" class="card card-banner card-orange-light">
                 <div class="card-body">
                     <i class="icon fa fa-user"></i>
                     <div class="content">

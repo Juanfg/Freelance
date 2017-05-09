@@ -25,7 +25,9 @@
                             <tr data-id="{{ $project->id }}">
                                 <td>
                                     <a href="{{ route('projects.show', [ $project->id]) }}" data-step="2" data-intro="You can click here if you want all the information of your project" data-position='top'>
-                                    <img src="{{Storage::url($project->photos()->first()->path)}}" width=80 height=80 class="img-responsive img-thumbnail">
+                                    @if ($project->photos()->first())
+                                        <img src="{{Storage::url($project->photos()->first()->path)}}" width=80 height=80 class="img-responsive img-thumbnail">
+                                    @endif
                                 </td>
                                 <td>{{ $project->name }}</td>                    
                                 <td>{{ $project->difficulty }}</td>

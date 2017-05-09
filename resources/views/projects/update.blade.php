@@ -11,13 +11,13 @@
             </div>
             <div class="messages"></div>
             <div class="card-body">
-                <div class="col-md-12" data-step="1" data-intro="This is the form to update your project" data-position="top">
+                <div class="col-md-12" data-step="1" data-intro="This is the form where you update your project." data-position="top">
                     <form enctype="multipart/form-data" id="upload_form" role="form" method="PUT" action="" name="form-data">
                         <input class="form-control" type="hidden" id="project_id" value="{{ $project->id }}">
                         <div class="form-group col-xs-12 col-md-12">
                             <div class="slideshow-container">
                                 @foreach ($project->photos()->get() as $photo)
-                                    <div class="mySlides" id="{{ $photo->id }}"  data-step="2" data-intro="If you want to delete a photo, click on the red X">
+                                    <div class="mySlides" id="{{ $photo->id }}"  data-step="2" data-intro="If you want to delete a photo, click on the red X on the top right">
                                         <img src="{{ Storage::url($photo->path) }}" style="width:100%; height:500px; object-fit:cover;" id="{{ $photo->id }}">
                                         <img src="{{ Storage::url('public/x_button.png') }}" class="close current_photo" id="{{ $photo->id }}"></img>
                                     </div>
@@ -33,7 +33,7 @@
                                 <input class="form-control" type="text" name="name" placeholder="Name" id="name" value="{{ $project->name }}">
                             </div>
                         </div>
-                        <div class="form-group col-md-6" data-step="5" data-intro="If you want more images, add it here" data-position="left">
+                        <div class="form-group col-md-6" data-step="5" data-intro="If you want more images in your project, add them here." data-position="left">
                             <label for="photos">Add photos:</label>
                             <input type="file" id="photos" name="photos[]" multiple/>
                             <p class="help-block">Add photos</p>
@@ -50,7 +50,7 @@
                             <input id="difficulty" name="difficulty" type="range" min="1" max="10" step="1" value="{{ $project->difficulty }}" onchange="updateRangeInput(this.value);"/>
                             <input type="text" id="rangeInput" value="{{ $project->difficulty }}">
                         </div>
-                        <div class="form-group col-md-6" data-step="6" data-intro="If you want to change your current document (if you have one), click here" data-position="left">
+                        <div class="form-group col-md-6" data-step="6" data-intro="If you want to update your current document or add a new one, click here." data-position="left">
                             <label for="document">Change your project document:</label>
                             <input type="file" id="document" name="document"/>
                             <p class="help-block">Update document</p>
@@ -76,7 +76,7 @@
                 </div>
             </div>
             <div class="card-body">
-                <button class="btn btn-success" id="update" style="margin-left: 30px;" data-step="7" data-intro="Click here if you finish with your changes" data-position="top">
+                <button class="btn btn-success" id="update" style="margin-left: 30px;" data-step="7" data-intro="Click here if you are finished with your changes." data-position="top">
                     Update
                 </button>
             </div>

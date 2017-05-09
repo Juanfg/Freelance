@@ -28,7 +28,7 @@
             </li>
 
             @if($user->id == Auth::user()->id)
-            <li role="tab2">
+            <li role="tab2" data-step="4" data-intro="Remember when you created your first project? If lots of people were interested and asked to join your project, you will see their requests right here!" data-position='top'>
               <a href="#tab2" aria-controls="tab2" role="tab" data-toggle="tab">Requests</a>
             </li>
             @endif
@@ -39,12 +39,12 @@
           <div role="tabpanel" class="tab-pane active" id="tab1">
             <div class="row">
               <div class="col-md-3 col-sm-12">
-                <div class="section">
+                <div class="section" data-step="1" data-intro="You may always find interesting facts about the users in their biographies. Have you worked on yours already? " data-position='top'>
                   <div class="section-title"><i class="icon fa fa-user" aria-hidden="true"></i> Bio</div>
                   <div class="section-body __indent">{{$user->bio}}</div>
                 </div>
                 @if($user->resume)
-                  <div class="section">
+                  <div class="section" data-step="2" data-intro="It seems like this user wants you to see his resume. It's not that bad to brag if you've got actually something to brag about!" data-position='top'>
                     <div class="section-title"><i class="icon fa fa-user" aria-hidden="true"></i> Resume</div>
                       <a href="/downloadDocument/{{ $user->id }}" class="card card-banner card-blue-light">
                           <div class="card-body">
@@ -59,7 +59,7 @@
                 @endif
               </div>
               <div class="col-md-9 col-sm-12">
-                <div class="section">
+                <div class="section" data-step="3" data-intro="When a project you've worked on is finished by the owner, it will be shown here. Look at this as your resume throughout your life on this platform!" data-position='top'>
                   <div class="section-title">Projects I've collaborated in</div>
                   <div class="section-body">
                   @foreach($finished_projects as $project)
@@ -90,7 +90,7 @@
               </div>
             </div>
             @if($user->id == Auth::user()->id)
-              <a class="btn btn-success margin-top" href="{{ route('users.edit', [ Auth::user()]) }}">Update Profile</a>
+              <a class="btn btn-success margin-top" href="{{ route('users.edit', [ Auth::user()]) }}" data-step="5" data-intro="Make sure you keep updating your profile with the latest information!" data-position='top'>Update Profile</a>
             @endif
           </div>
 

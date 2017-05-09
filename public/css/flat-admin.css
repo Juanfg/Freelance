@@ -3995,13 +3995,16 @@ ui-view > .app-messaging-container {
         position: relative;
         width: 100%;
         padding: 2rem;
-        z-index: 100; }
+        z-index: 100; 
+      word-wrap: break-word;}
         .card.card-banner .card-body .content .value {
           font-size: 4em;
           line-height: 3rem;
           font-weight: 200;
           padding-top: 2rem;
-          color: #444; }
+          color: #444; 
+          word-wrap: break-word;}
+
           .card.card-banner .card-body .content .value .sign {
             font-size: 0.4em;
             font-weight: 200;

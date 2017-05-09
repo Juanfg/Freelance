@@ -40,15 +40,16 @@
     </div>
 
     <div class="row" data-step="1" data-intro="This is the complete information related to the project" data-position="top">
-        <div class="col-md-12">
-            <div class="card card-banner card-green-light">
+
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12"  data-step="1" data-intro="This is the complete information related to the project" data-position="top">
+            <a class="card card-banner card-green-light">
                 <div class="card-body">
-                    <i class="icon fa fa-book"></i>
                     <div class="content">
+                        <div class="title">Description</div>
                         <div class="title">{{ $project->description }}</div>
-                    </div>  
+                    </div>
                 </div>
-            </div>
+            </a>
         </div>
 
         <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">

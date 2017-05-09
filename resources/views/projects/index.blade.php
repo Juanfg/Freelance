@@ -26,17 +26,17 @@
                             <tr data-id="{{ $project->id }}"> 
                                 <td>               
                                   @if ($project->photos()->first())
-                                        <a href="{{ route('projects.show', [ $project->id]) }}" data-step="2" data-intro="You can click here if you want all the information of your project" data-position='top'>
+                                        <a href="{{ route('projects.show', [ $project->id]) }}">
                                         <img src="{{Storage::url($project->photos()->first()->path)}}" width=80 height=80 class="img-responsive img-thumbnail">
                                     @endif
                                 </td>
-                                <td ><a href="{{ route('projects.show', [$project->id]) }}" data-step="2" data-intro="You can click here if you want all the information of your project" data-position='top'>{{ $project->name }}</a></td>                    
+                                <td ><a href="{{ route('projects.show', [$project->id]) }}" data-step="2" data-intro="If you want to see the project's page you better click here!" data-position='top'>{{ $project->name }}</a></td>                    
                                 <td>{{ $project->difficulty }}</td>
                                 <td>{{ $project->document ? 'YES' : 'NO' }}</td>
                                 <td>{{ $project->active ? 'YES' : 'NO' }}</td>
                                 <td>
-                                    <button class="btn btn-primary btn-xs edit" data-step="3" data-intro="Here you can edit your project" data-position="left"><i class="fa fa-pencil"></i></button>
-                                    <button class="btn btn-danger btn-xs delete" data-step="4" data-intro="Carefull! Here you can delete your project" data-position="left"><i class="fa fa-trash-o "></i></button>
+                                    <button class="btn btn-primary btn-xs edit" data-step="3" data-intro="Want to change some things about your project? Click here!" data-position="left"><i class="fa fa-pencil"></i></button>
+                                    <button class="btn btn-danger btn-xs delete" data-step="4" data-intro="Careful! If you press this button your project will be permanently deleted." data-position="left"><i class="fa fa-trash-o "></i></button>
                                 </td>
                             </tr>
                         @endforeach
@@ -45,7 +45,7 @@
             </div>
 
             <div class="card-body">
-                <button class="btn btn-success create" data-step="5" data-intro="Here is where you will click if you want to create a new project" data-position="top">
+                <button class="btn btn-success create" data-step="5" data-intro="Want to create a new project? Think no more and click here!" data-position="top">
                     Create a new Project
                 </button>
             </div>

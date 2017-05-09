@@ -22,13 +22,13 @@
                         </div>
                         <div class="form-group col-md-3">
                             <label for="photos">Profile Picture</label>
-                            <input type="file" id="photos" name="photos"/>
-                            <p class="help-block">Add photos</p>
+                            <input type="file" id="profile" name="profile"/>
+                            <p class="help-block">Add photo</p>
                         </div>
                         <div class="form-group col-md-3">
                             <label for="photos">Resume</label>
-                            <input type="file" id="photos" name="photos"/>
-                            <p class="help-block">Add photos</p>
+                            <input type="file" id="resume" name="resume"/>
+                            <p class="help-block">Add resume</p>
                         </div>
 
                         <div class="form-group col-xs-12 col-md-6">

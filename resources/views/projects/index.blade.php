@@ -9,7 +9,7 @@
             <div class="card-header">
                 Here you can see your own projects.
             </div>
-            <div class="scroll card-body no-padding" data-step="1" data-intro="Here are all your projects!" data-position='top'>
+            <div class="scroll card-body no-padding" data-step="1" data-intro="All of the projects you've submitted to the platform are listed here!" data-position='top'>
                 <table class="table table-striped primary" cellspacing="0" width="100%">
                     <thead>
                         <tr>
